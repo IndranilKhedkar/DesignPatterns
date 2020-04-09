@@ -1,4 +1,4 @@
-﻿namespace CreationalPattern
+﻿namespace CreationalPatterns
 {
     public class BuilderPattern
     {
