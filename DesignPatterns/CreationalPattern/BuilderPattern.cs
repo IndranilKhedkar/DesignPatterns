@@ -14,107 +14,114 @@
             f16Director.ConstructAircraft(false);
             IAircraft f16 = f16Builder.GetResult();
         }
-    }
 
-    public interface IAircraft
-    {
-    }
+        private interface IAircraft
+        { }
 
-    public class Boeing747 : IAircraft
-    {
-    }
+        private class Boeing747 : IAircraft
+        { }
 
-    public class F16 : IAircraft
-    {
-    }
+        private class F16 : IAircraft
+        { }
 
-    public class Director
-    {
-        private readonly AircraftBuilder _aircraftBuilder;
-
-        public Director(AircraftBuilder aircraftBuilder)
+        private class Director
         {
-            _aircraftBuilder = aircraftBuilder;
-        }
+            private readonly AircraftBuilder _aircraftBuilder;
 
-        public void ConstructAircraft(bool isPassenger)
-        {
-            _aircraftBuilder.BuildCockpit();
-            _aircraftBuilder.BuildEngine();
-            _aircraftBuilder.BuildWings();
-
-            if (isPassenger)
+            public Director(AircraftBuilder aircraftBuilder)
             {
-                _aircraftBuilder.BuildBathrooms();
+                _aircraftBuilder = aircraftBuilder;
+            }
+
+            public void ConstructAircraft(bool isPassenger)
+            {
+                _aircraftBuilder.BuildCockpit();
+                _aircraftBuilder.BuildEngine();
+                _aircraftBuilder.BuildWings();
+
+                if (isPassenger)
+                {
+                    _aircraftBuilder.BuildBathrooms();
+                }
             }
         }
-    }
 
-    public abstract class AircraftBuilder
-    {
-        public virtual void BuildEngine()
-        { }
-
-        public virtual void BuildWings()
-        { }
-
-        public virtual void BuildCockpit()
-        { }
-
-        public virtual void BuildBathrooms()
-        { }
-
-        abstract public IAircraft GetResult();
-    }
-
-    public class Boeing747Builder : AircraftBuilder
-    {
-        private Boeing747 _boeing747;
-
-        public override void BuildCockpit()
-        { }
-
-        public override void BuildEngine()
-        { }
-
-        public override void BuildBathrooms()
-        { }
-
-        public override void BuildWings()
-        { }
-
-        public override IAircraft GetResult()
+        private abstract class AircraftBuilder
         {
-            return _boeing747;
-        }
-    }
+            public virtual void BuildEngine()
+            { }
 
-    public class F16Builder : AircraftBuilder
-    {
-        private F16 f16;
+            public virtual void BuildWings()
+            { }
 
-        public override void BuildEngine()
-        {
-            // get F-16 an engine
-            // f16.engine = new F16Engine();
+            public virtual void BuildCockpit()
+            { }
+
+            public virtual void BuildBathrooms()
+            { }
+
+            abstract public IAircraft GetResult();
         }
 
-        public override void BuildWings()
+        private class Boeing747Builder : AircraftBuilder
         {
-            // get F-16 wings
-            // f16.wings = new F16Wings();
+            private readonly Boeing747 _boeing747 = null;
+
+            public Boeing747Builder()
+            {
+                _boeing747 = new Boeing747();
+            }
+
+            public override void BuildCockpit()
+            { }
+
+            public override void BuildEngine()
+            { }
+
+            public override void BuildBathrooms()
+            { }
+
+            public override void BuildWings()
+            { }
+
+            public override IAircraft GetResult()
+            {
+                return _boeing747;
+            }
         }
 
-        public override void BuildCockpit()
+        private class F16Builder : AircraftBuilder
         {
-            // f16 = new F16();
-            // get F-16 a cockpit
-            // f16.cockpit = new F16Cockpit();
-        }
+            private readonly F16 _f16 = null;
 
-        public override IAircraft GetResult()
-        {
-            return f16;
+            public F16Builder()
+            {
+                _f16 = new F16();
+            }
+
+            public override void BuildEngine()
+            {
+                // get F-16 an engine
+                // f16.engine = new F16Engine();
+            }
+
+            public override void BuildWings()
+            {
+                // get F-16 wings
+                // f16.wings = new F16Wings();
+            }
+
+            public override void BuildCockpit()
+            {
+                // f16 = new F16();
+                // get F-16 a cockpit
+                // f16.cockpit = new F16Cockpit();
+            }
+
+            public override IAircraft GetResult()
+            {
+                return _f16;
+            }
         }
     }
 }
